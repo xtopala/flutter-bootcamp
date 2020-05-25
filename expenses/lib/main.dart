@@ -28,14 +28,14 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Quicksand',
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
-                title: TextStyle(
+                headline6: TextStyle(
                   fontFamily: 'OpenSans',
                   fontSize: 20,
                 ),
               ),
         ),
         textTheme: ThemeData.light().textTheme.copyWith(
-              title: TextStyle(
+              headline6: TextStyle(
                 fontFamily: 'OpenSans',
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -103,6 +103,45 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
+  List<Widget> _buildLandscapeContent(double height, Widget txListWidget) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Show Chart',
+            style: Theme.of(context).textTheme.title,
+          ),
+          Switch.adaptive(
+            activeColor: Theme.of(context).accentColor,
+            onChanged: (val) {
+              setState(() {
+                _showChart = val;
+              });
+            },
+            value: _showChart,
+          ),
+        ],
+      ),
+      _showChart
+          ? Container(
+              height: height * 0.7,
+              child: Chart(_recentTxs),
+            )
+          : txListWidget
+    ];
+  }
+
+  List<Widget> _buildPortraitContent(double height, Widget txListWidget) {
+    return [
+      Container(
+        height: height * 0.3,
+        child: Chart(_recentTxs),
+      ),
+      txListWidget
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -145,38 +184,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            if (isLandscape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Show Chart',
-                    style: Theme.of(context).textTheme.title,
-                  ),
-                  Switch.adaptive(
-                    activeColor: Theme.of(context).accentColor,
-                    onChanged: (val) {
-                      setState(() {
-                        _showChart = val;
-                      });
-                    },
-                    value: _showChart,
-                  ),
-                ],
-              ),
-            if (!isLandscape)
-              Container(
-                height: height * 0.3,
-                child: Chart(_recentTxs),
-              ),
-            if (!isLandscape) txListWidget,
-            if (isLandscape)
-              _showChart
-                  ? Container(
-                      height: height * 0.7,
-                      child: Chart(_recentTxs),
-                    )
-                  : txListWidget
+            if (isLandscape) ..._buildLandscapeContent(height, txListWidget),
+            if (!isLandscape) ..._buildPortraitContent(height, txListWidget),
           ],
         ),
       ),
