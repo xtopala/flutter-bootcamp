@@ -37,7 +37,7 @@ class Products with ChangeNotifier {
     ),
   ];
 
-  var _showFavoritesOnly = false;
+  // var _showFavoritesOnly = false;
 
   List<Product> get items {
     // return a copy, not a reference [memory pointer] of a private property
