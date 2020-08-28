@@ -1,0 +1,39 @@
+{
+    "inherit": "../../common/omv/hybrid.scene.json",
+    "objects": {
+        "$concat": [
+            {
+                "$ref": "../../common/omv/hybrid.scene.json#/objects"
+            },
+            {
+                "rasterterrain": {}
+            }
+        ]
+    },
+    "bucketPriorities": {
+        "$insert": {
+            "after": {
+                "group": "southpole"
+            },
+            "into": {
+                "$ref": "../../common/omv/hybrid.scene.json#/bucketPriorities"
+            },
+            "value": [
+                {
+                    "group": "rasterterrain"
+                }
+            ]
+        }
+    },
+    "assets": {
+        "path": "assets/miami"
+    },
+    "extends": [
+        "common.json",
+        "../schemes/normal.day.definitions.json",
+        "../schemes/normal.night.definitions.json",
+        "../schemes/satellite.day.definitions.json",
+        "../schemes/hybrid.day.definitions.json",
+        "../schemes/hybrid.night.definitions.json"
+    ]
+}
