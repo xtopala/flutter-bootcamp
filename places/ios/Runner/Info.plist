@@ -22,6 +22,17 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>HERECredentials</key>
+		<dict>
+			<key>AccessKeyId</key>
+			<string>g5n05XZQjT1ACPytuvmvNQ</string>
+			<key>AccessKeySecret</key>
+			<string>nuIfi3Y_QTf8DMmLYdH533_1Apnr4eW29whoYyN4yij2gNJ_8mI4jMQk-AlaNR61YxlY9B6O7bCpeIEsgzfnlw</string>
+		</dict>
+
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
+
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need to take a picture</string>
 	<key>NSCameraUsageDescription</key>

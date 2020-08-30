@@ -101,7 +101,7 @@ packages:
     source: path
     version: "4.4.4"
   http:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http
       url: "https://pub.dartlang.org"
