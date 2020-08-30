@@ -28,6 +28,13 @@ class _MapScreenState extends State<MapScreen> {
   MapImage _markerMapImg;
   MapMarker _currentMarker;
 
+  @override
+  void dispose() {
+    _hereMapController.release();
+    _currentMarker = null;
+    super.dispose();
+  }
+
   void _mapCreatedHanlder(HereMapController mapCtrl) {
     final double distanceToEarthInMeters = 8000;
     _hereMapController = mapCtrl;
@@ -45,8 +52,18 @@ class _MapScreenState extends State<MapScreen> {
         ),
         distanceToEarthInMeters,
       );
-      // setting a tap handler ...
-      _setTapGestureHandler();
+      // setting a tap handler if select mode is active
+      if (_pickedLocation == null && widget.isSelecting) {
+        _setTapGestureHandler();
+      } else {
+        // otherwise, add initial location marker
+        _addMapMarker(
+          GeoCoordinates(
+            widget.initialLocation.latitude,
+            widget.initialLocation.longitude,
+          ),
+        );
+      }
     });
   }
 
@@ -60,7 +77,7 @@ class _MapScreenState extends State<MapScreen> {
                 _pickedLocation = geoCordinates;
               });
 
-              _addMapMarker(geoCordinates);
+              _addMapMarker(_pickedLocation);
             },
           )
         : null;
